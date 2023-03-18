@@ -1,9 +1,9 @@
 import express, { Application, Request, Response } from "express";
 import { config } from "dotenv";
 import * as fs from "fs";
-import { getDomElementText } from "./helpers/getDomText";
-import { getWordOccurence } from "./helpers/getWordOccurance";
 import { scanHtmlDocs } from "./helpers/scanHtmlDocs";
+import puppeteer from "puppeteer";
+import { getDomElementText } from "./helpers/getDomText";
 config();
 
 const app: Application = express();
@@ -15,6 +15,25 @@ app.get("/search", async (req: Request, res: Response) => {
   const word = req.query.word as string;
 
   res.json(scanHtmlDocs(word));
+});
+
+app.get("/ping", async (req: Request, res: Response) => {
+  const website = req.query.website as string;
+
+  (async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(website);
+    const html = await page.content();
+
+    fs.writeFileSync(
+      website.replace("https://", "").replace(".com", "") + ".html",
+      html
+    );
+
+    await browser.close();
+  })();
+  res.end();
 });
 
 app.listen(PORT, () => {

@@ -13,8 +13,6 @@ export const getDomElementText = (buffer: string) => {
     metaWords.push(meta[i].getElementsByTagName("description"));
   }
 
-  console.log(metaWords);
-
   return words
     ?.split(" ")
     .map((el: string) => {

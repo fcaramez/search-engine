@@ -15,13 +15,13 @@ export const scanHtmlDocs = (keyword: string) => {
       pageTitle: doc,
       content: el,
       occurance: occurance,
-      score: `${(occurance!! * 100) / el?.length!!}%`,
+      score: `${((occurance!! * 100) / el?.length!!).toFixed(2)}%`,
     });
   }
 
-  const sortedDocs = scannedDocs.sort((a, b) => {
-    return a.occurance!! > b.occurance!!;
-  });
+  const sortedDocs = scannedDocs.sort((a, b) => b.occurance!! - a.occurance!!);
+
+  console.log(scannedDocs);
 
   return {
     message: `Document ${sortedDocs[0].pageTitle} is your top result with a score of ${sortedDocs[0].score}`,
