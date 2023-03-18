@@ -1,0 +1,126 @@
+[
+  {
+    "name": "Google",
+    "url": "https://www.google.com/"
+  },
+  {
+    "name": "YouTube",
+    "url": "https://www.youtube.com/"
+  },
+  {
+    "name": "Facebook",
+    "url": "https://www.facebook.com/"
+  },
+  {
+    "name": "Amazon",
+    "url": "https://www.amazon.com/"
+  },
+  {
+    "name": "Baidu",
+    "url": "https://www.baidu.com/"
+  },
+  {
+    "name": "Wikipedia",
+    "url": "https://www.wikipedia.org/"
+  },
+  {
+    "name": "Tencent QQ",
+    "url": "https://im.qq.com/"
+  },
+  {
+    "name": "TikTok",
+    "url": "https://www.tiktok.com/"
+  },
+  {
+    "name": "Sohu",
+    "url": "https://www.sohu.com/"
+  },
+  {
+    "name": "Zoom",
+    "url": "https://zoom.us/"
+  },
+  {
+    "name": "Netflix",
+    "url": "https://www.netflix.com/"
+  },
+  {
+    "name": "Microsoft",
+    "url": "https://www.microsoft.com/"
+  },
+  {
+    "name": "Instagram",
+    "url": "https://www.instagram.com/"
+  },
+  {
+    "name": "LinkedIn",
+    "url": "https://www.linkedin.com/"
+  },
+  {
+    "name": "Yahoo",
+    "url": "https://www.yahoo.com/"
+  },
+  {
+    "name": "WhatsApp",
+    "url": "https://www.whatsapp.com/"
+  },
+  {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/"
+  },
+  {
+    "name": "Tmall",
+    "url": "https://www.tmall.com/"
+  },
+  {
+    "name": "Twitter",
+    "url": "https://twitter.com/"
+  },
+  {
+    "name": "Pinterest",
+    "url": "https://www.pinterest.com/"
+  },
+  {
+    "name": "Office",
+    "url": "https://www.office.com/"
+  },
+  {
+    "name": "Xinhua News Agency",
+    "url": "http://www.xinhuanet.com/"
+  },
+  {
+    "name": "Google India",
+    "url": "https://www.google.co.in/"
+  },
+  {
+    "name": "Sina Weibo",
+    "url": "https://www.weibo.com/"
+  },
+  {
+    "name": "Adobe",
+    "url": "https://www.adobe.com/"
+  },
+  {
+    "name": "DuckDuckGo",
+    "url": "https://duckduckgo.com/"
+  },
+  {
+    "name": "Naver",
+    "url": "https://www.naver.com/"
+  },
+  {
+    "name": "Craigslist",
+    "url": "https://www.craigslist.org/"
+  },
+  {
+    "name": "Apple",
+    "url": "https://www.apple.com/"
+  },
+  {
+    "name": "AliExpress",
+    "url": "https://www.aliexpress.com/"
+  },
+  {
+    "name": "Stack Overflow",
+    "url": "https://stackoverflow.com/"
+  }
+]
