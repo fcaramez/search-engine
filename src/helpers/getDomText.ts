@@ -16,7 +16,7 @@ export const getDomElementText = (buffer: string) => {
   return words
     ?.split(" ")
     .map((el: string) => {
-      return el.trim();
+      return el.trim().toLowerCase();
     })
     .filter((word: string) => word !== "");
 };

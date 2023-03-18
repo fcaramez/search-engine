@@ -24,8 +24,6 @@ export const scanHtmlDocs = (keyword: string) => {
 
   const sortedDocs = scannedDocs.sort((a, b) => b.score!! - a.score!!);
 
-  console.log(sortedDocs);
-
   return {
     message: `Document ${sortedDocs[0].pageTitle} is your top result with a score of ${sortedDocs[0].message}`,
   };

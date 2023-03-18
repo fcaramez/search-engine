@@ -3,7 +3,6 @@ import { config } from "dotenv";
 import * as fs from "fs";
 import { scanHtmlDocs } from "./helpers/scanHtmlDocs";
 import puppeteer from "puppeteer";
-import { getDomElementText } from "./helpers/getDomText";
 config();
 
 const app: Application = express();
@@ -14,7 +13,7 @@ const htmlFile = fs.readFileSync(__dirname + "/a.html", "utf-8");
 app.get("/search", async (req: Request, res: Response) => {
   const query = req.query.query as string;
 
-  res.json(scanHtmlDocs(query));
+  res.json(scanHtmlDocs(query.toLowerCase()));
 });
 
 app.get("/ping", async (req: Request, res: Response) => {
