@@ -10,20 +10,23 @@ export const scanHtmlDocs = (keyword: string) => {
 
   for (const doc of htmlDocs) {
     let el = getDomElementText(fs.readFileSync(`./dist/${doc}`, "utf-8"));
+    console.log(getWordOccurence(keyword, el));
+
     let occurance = getWordOccurence(keyword, el);
     scannedDocs.push({
       pageTitle: doc,
       content: el,
       occurance: occurance,
-      score: `${((occurance!! * 100) / el?.length!!).toFixed(2)}%`,
+      message: `${((occurance!! * 100) / el?.length!!).toFixed(2)}%`,
+      score: Number(((occurance!! * 100) / el?.length!!).toFixed(2)),
     });
   }
 
-  const sortedDocs = scannedDocs.sort((a, b) => b.occurance!! - a.occurance!!);
+  const sortedDocs = scannedDocs.sort((a, b) => b.score!! - a.score!!);
 
-  console.log(scannedDocs);
+  console.log(sortedDocs);
 
   return {
-    message: `Document ${sortedDocs[0].pageTitle} is your top result with a score of ${sortedDocs[0].score}`,
+    message: `Document ${sortedDocs[0].pageTitle} is your top result with a score of ${sortedDocs[0].message}`,
   };
 };

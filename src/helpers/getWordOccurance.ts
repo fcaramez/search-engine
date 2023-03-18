@@ -1,9 +1,20 @@
 export const getWordOccurence = (
   word: string,
   wordsArray: string[] | undefined
-): number | null => {
+) => {
   if (!wordsArray) {
     return null;
   }
-  return wordsArray.filter((el: string) => word == el).length;
+
+  const wordsToFind = word.split(" ");
+
+  const occurences: number[] = [];
+
+  for (const word of wordsToFind) {
+    console.log(word);
+
+    occurences.push(wordsArray.filter((el: string) => word == el).length);
+  }
+
+  return occurences.reduce((acc, val) => acc + val);
 };

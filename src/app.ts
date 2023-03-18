@@ -12,9 +12,9 @@ const PORT = process.env.PORT;
 
 const htmlFile = fs.readFileSync(__dirname + "/a.html", "utf-8");
 app.get("/search", async (req: Request, res: Response) => {
-  const word = req.query.word as string;
+  const query = req.query.query as string;
 
-  res.json(scanHtmlDocs(word));
+  res.json(scanHtmlDocs(query));
 });
 
 app.get("/ping", async (req: Request, res: Response) => {
