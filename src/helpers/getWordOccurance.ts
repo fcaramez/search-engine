@@ -1,7 +1,7 @@
 export const getWordOccurence = (
   word: string,
   wordsArray: string[] | undefined
-) => {
+): number | null => {
   if (!wordsArray) {
     return null;
   }
