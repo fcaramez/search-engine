@@ -9,9 +9,13 @@ const app: Application = express();
 
 const PORT = process.env.PORT;
 
-const htmlFile = fs.readFileSync(__dirname + "/a.html", "utf-8");
 app.get("/search", async (req: Request, res: Response) => {
   const query = req.query.query as string;
+
+  if (!query) {
+    res.json({ message: "Please provide a query" });
+    return;
+  }
 
   res.json(scanHtmlDocs(query.toLowerCase()));
 });

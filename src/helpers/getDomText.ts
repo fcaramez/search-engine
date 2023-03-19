@@ -5,18 +5,52 @@ export const getDomElementText = (buffer: string) => {
 
   const words = htmlFile.window.document.body.textContent?.trim();
 
-  const meta = htmlFile.window.document.head.getElementsByTagName("meta");
+  const metaDescription = htmlFile.window.document.head
+    .getElementsByTagName("meta")
+    .namedItem("description")?.content;
 
-  let metaWords: any[] = [];
+  const metaKeywords = htmlFile.window.document.head
+    .getElementsByTagName("meta")
+    .namedItem("keywords")?.content;
 
-  for (let i = 0; i < meta.length; i++) {
-    metaWords.push(meta[i].getElementsByTagName("description"));
-  }
-
-  return words
+  const cleanedWords = words!!
     ?.split(" ")
     .map((el: string) => {
-      return el.trim().toLowerCase();
+      return el
+        .replace(/[^a-zA-Z0-9]/g, "")
+        .trim()
+        .toLowerCase();
     })
     .filter((word: string) => word !== "");
+
+  if (!metaKeywords) {
+    return cleanedWords;
+  }
+
+  if (!metaDescription) {
+    return cleanedWords;
+  }
+
+  const cleanedMetaTags = [
+    ...metaDescription!!
+      .split(" ")
+      .map((el: string) => {
+        return el
+          .replace(/[^a-zA-Z0-9]/g, "")
+          .trim()
+          .toLowerCase();
+      })
+      .filter((word: string) => word !== ""),
+    ...metaKeywords!!
+      .split(" ")
+      .map((el: string) => {
+        return el
+          .replace(/[^a-zA-Z0-9]/g, "")
+          .trim()
+          .toLowerCase();
+      })
+      .filter((word: string) => word !== ""),
+  ];
+
+  return [...cleanedMetaTags, ...cleanedWords];
 };
