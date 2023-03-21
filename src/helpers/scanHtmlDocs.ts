@@ -1,30 +1,26 @@
-import * as fs from "fs";
-import { getDomElementText } from "./getDomText";
+import { getRawHtml } from "../scraper";
 import { getWordOccurence } from "./getWordOccurance";
+import { WebsiteObj } from "../types";
 
-export const scanHtmlDocs = (keyword: string) => {
-  const dir = fs.readdirSync("./dist", "utf-8");
-  const htmlDocs = dir.filter((file: string) => file.endsWith(".html"));
-
+export const scanHtmlDocs = async (keyword: string, websites: WebsiteObj[]) => {
   const scannedDocs = [];
 
-  for (const doc of htmlDocs) {
-    let el = getDomElementText(fs.readFileSync(`./dist/${doc}`, "utf-8"));
+  for (const website of websites!!) {
+    let document = await getRawHtml(website.url);
 
-    let occurance = getWordOccurence(keyword, el);
-
+    let occurrence = getWordOccurence(keyword, document);
     scannedDocs.push({
-      pageTitle: doc,
-      content: el,
-      occurance: occurance,
-      message: `${((occurance!! * 100) / el?.length!!).toFixed(2)}%`,
-      score: Number(((occurance!! * 100) / el?.length!!).toFixed(2)),
+      pageTitle: website.title,
+      content: document,
+      occurence: occurrence,
+      message: `${((occurrence!! * 100) / document?.length!!).toFixed(2)}%`,
+      score: Number(((occurrence!! * 100) / document?.length!!).toFixed(2)),
     });
   }
 
   const sortedDocs = scannedDocs
     .sort((a, b) => b.score!! - a.score!!)
-    .map(el => {
+    .map((el) => {
       return {
         title: el.pageTitle,
         score: el.score,

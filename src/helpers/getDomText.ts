@@ -1,20 +1,24 @@
-import { JSDOM } from "jsdom";
-
 export const getDomElementText = (buffer: string) => {
-  const htmlFile = new JSDOM(buffer);
+  const htmlContent = buffer.toString();
+  const words = htmlContent
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
-  const words = htmlFile.window.document.body.textContent?.trim();
 
-  const metaDescription = htmlFile.window.document.head
-    .getElementsByTagName("meta")
-    .namedItem("description")?.content;
+  const metaDescriptionMatch = htmlContent.match(
+    /<meta\s+name="description"\s+content="([^"]*)"/
+  );
 
-  const metaKeywords = htmlFile.window.document.head
-    .getElementsByTagName("meta")
-    .namedItem("keywords")?.content;
+  const metaDescription = metaDescriptionMatch ? metaDescriptionMatch[1] : null;
 
-  const cleanedWords = words!!
-    ?.split(" ")
+  const metaKeywordsMatch = htmlContent.match(
+    /<meta\s+name="keywords"\s+content="([^"]*)"/
+  );
+  const metaKeywords = metaKeywordsMatch ? metaKeywordsMatch[1] : null;
+
+  const cleanedWords = words
+    .split(" ")
     .map((el: string) => {
       return el
         .replace(/[^a-zA-Z0-9]/g, "")
@@ -32,7 +36,7 @@ export const getDomElementText = (buffer: string) => {
   }
 
   const cleanedMetaTags = [
-    ...metaDescription!!
+    ...metaDescription
       .split(" ")
       .map((el: string) => {
         return el
@@ -41,7 +45,7 @@ export const getDomElementText = (buffer: string) => {
           .toLowerCase();
       })
       .filter((word: string) => word !== ""),
-    ...metaKeywords!!
+    ...metaKeywords
       .split(" ")
       .map((el: string) => {
         return el

@@ -1,11 +1,13 @@
 import express, { Application, Request, Response } from "express";
 import { config } from "dotenv";
-import * as fs from "fs";
 import { scanHtmlDocs } from "./helpers/scanHtmlDocs";
-import puppeteer from "puppeteer";
+import morgan from "morgan";
+import { getRawHtml } from "./scraper";
 config();
 
 const app: Application = express();
+
+app.use(morgan("dev"));
 
 const PORT = process.env.PORT;
 
@@ -17,13 +19,20 @@ app.get("/search", async (req: Request, res: Response) => {
     return;
   }
 
-  res.json(scanHtmlDocs(query.toLowerCase()));
+  res.json(
+    await scanHtmlDocs(query.toLowerCase(), [
+      {
+        title: "test",
+        url: "https://blog.logrocket.com/parsing-html-nodejs-cheerio/",
+      },
+    ])
+  );
 });
 
 app.get("/ping", async (req: Request, res: Response) => {
-  const website = req.query.website as string;
+  /*const website = req.query.website as string;
 
-  (async () => {
+   (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(website);
@@ -35,8 +44,17 @@ app.get("/ping", async (req: Request, res: Response) => {
     );
 
     await browser.close();
-  })();
+  })(); */
   res.end();
+});
+
+app.get("/", async (req: Request, res: Response) => {
+  try {
+    await getRawHtml("https://www.nytimes.com/");
+    res.status(200).end();
+  } catch (error) {
+    res.status(500).end();
+  }
 });
 
 app.listen(PORT, () => {
